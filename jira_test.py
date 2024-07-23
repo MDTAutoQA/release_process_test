@@ -19,16 +19,18 @@ def main(issue_key, file_path):
     transitions = jira_server.transitions(issue)
     for transition in transitions:
         print(f"ID: {transition['id']}, Name: {transition['name']}")
+        if transition['name'].__eq__('Build Ready'):
+            transition_id = transition['id']
+            # Change state
+            jira_server.transition_issue(issue, transition_id)
+            break
 
-    # Change state
-    #transition_id = '131'  # Replace with the actual transition ID
-    #JIRA_SERVER.transition_issue(ISSUE, transition_id)
     # Leave comment
-    #comment = 'This is a comment left by a Python script.'
-    #JIRA_SERVER.add_comment(ISSUE, comment)
+    comment = f'Click path to download the file. [Click here|{file_path}]'
+    jira_server.add_comment(issue, comment)
     # Assign issue
-    #assignee = 'new-assignee-username'
-    #JIRA_SERVER.assign_issue(ISSUE, assignee)
+    assignee = 'MD77006'
+    jira_server.assign_issue(issue, assignee)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="A script that takes two arguments.")
