@@ -26,7 +26,7 @@ def main(issue_key, file_path):
             break
 
     # Leave comment
-    comment = f'Click path to download the file. [Click here|{file_path}]'
+    comment = f'Click path to download the file. {file_path}]'
     jira_server.add_comment(issue, comment)
     # Assign issue
     assignee = 'MD77006'
